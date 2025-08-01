@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Peserta</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Manajemen Peserta</h1>
+    <section id="form-section">
+        <h2>Tambah Peserta</h2>
+        <form id="peserta-form">
+            <input type="hidden" id="peserta-id">
+            <div class="peserta-row">
+                <label>Nama:<br><input type="text" id="nama" required></label>
+                <label>Alamat:<br><input type="text" id="alamat" required></label>
+            </div>
+            <div class="peserta-row">
+                <label>Kelompok:<br><input type="text" id="kelompok" required></label>
+                <label>Status:<br>
+                    <select id="status" required>
+                        <option value="Aktif">Aktif</option>
+                        <option value="Nonaktif">Nonaktif</option>
+                    </select>
+                </label>
+            </div>
+            <div style="margin-top:10px;">
+                <button type="submit" id="submit-btn">Tambah</button>
+                <button type="button" id="reset-btn">Reset</button>
+            </div>
+        </form>
+    </section>
+    <section id="table-section">
+        <h2>Daftar Peserta</h2>
+        <table id="laporan-table" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                    <th>Kelompok</th>
+                    <th>Status</th>
+                    <th>QR</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data peserta akan diisi via JS -->
+            </tbody>
+        </table>
+    </section>
+    <script src="js/env.js"></script>
+    <script src="js/peserta.js"></script>
+</body>
+</html> 

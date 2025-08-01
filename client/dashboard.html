@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Laporan Absensi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Dashboard Laporan Absensi</h1>
+    <section>
+        <form id="filter-form">
+            <label>Filter Tanggal:
+                <input type="date" id="filter-tanggal">
+            </label>
+            <label>Filter Sesi:
+                <select id="filter-sesi">
+                    <option value="">Semua Sesi</option>
+                </select>
+            </label>
+            <button type="submit">Terapkan Filter</button>
+            <button type="button" id="reset-filter">Reset</button>
+            <button id="export-csv" style="margin-top:16px;">Ekspor CSV</button>
+            <button id="hapus-semua-absensi" class="btn-hapus" style="margin-top:16px;">Hapus Semua Absensi</button>
+        </form>
+        <table id="laporan-table" border="1" style="margin-top:16px;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                    <th>Kelompok</th>
+                    <th>Tanggal</th>
+                    <th>Sesi</th>
+                    <th>Waktu Absen</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data laporan akan diisi via JS -->
+            </tbody>
+        </table>
+    </section>
+    <script src="js/env.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html> 

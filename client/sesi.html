@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Sesi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Manajemen Sesi</h1>
+    <section id="form-section">
+        <h2>Tambah Sesi</h2>
+        <form id="sesi-form">
+            <input type="hidden" id="sesi-id">
+            <label>Nama Sesi:<br><input type="text" id="nama_sesi" required></label>
+            <div class="sesi-row">
+                <label>Tanggal Mulai:<br><input type="date" id="tanggal" required></label>
+                <label>Tanggal Akhir:<br><input type="date" id="tanggal_akhir" required></label>
+            </div>
+            <div class="sesi-row">
+                <label>Jam Mulai:<br><input type="time" id="mulai" required></label>
+                <label>Jam Akhir:<br><input type="time" id="akhir" required></label>
+                <label>Toleransi Absen (menit):<br><input type="number" id="toleransi_absen" min="0" value="30" required></label>
+            </div>
+            <div class="button-container">
+                <button type="submit" id="submit-btn">Tambah</button>
+                <button type="button" id="reset-btn">Reset</button>
+            </div>
+        </form>
+    </section>
+    <section id="table-section">
+        <h2>Daftar Sesi</h2>
+        <table id="sesi-table" border="1">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Sesi</th>
+                    <th>Tanggal Mulai</th>
+                    <th>Tanggal Akhir</th>
+                    <th>Waktu Mulai</th>
+                    <th>Waktu Akhir</th>
+                    <th>Toleransi Absen</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data sesi akan diisi via JS -->
+            </tbody>
+        </table>
+    </section>
+    <script src="js/env.js"></script>
+    <script src="js/sesi.js"></script>
+</body>
+</html> 

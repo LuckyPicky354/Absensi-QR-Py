@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absensi Manual</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Absensi Manual</h1>
+    <section id="info-sesi" style="margin-bottom:20px;"></section>
+    <section id="manual-absen-section">
+        <h2>Peserta Yang Belum Absen</h2>
+        <input type="text" id="search-peserta" placeholder="Cari nama/alamat/kelompok..." style="margin-bottom:12px; padding:6px; width:60%; max-width:300px;">
+        <table id="laporan-table" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                    <th>Kelompok</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data peserta akan diisi via JS -->
+            </tbody>
+        </table>
+    </section>
+    <div id="status" style="margin-top:24px; text-align:center; font-size:1.1em;"></div>
+    <script src="js/env.js"></script>
+    <script src="js/manual.js"></script>
+</body>
+</html> 
