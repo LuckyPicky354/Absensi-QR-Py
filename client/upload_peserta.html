@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Peserta via CSV</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Upload Peserta via CSV</h1>
+    <section>
+        <form id="csv-upload-form" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <input type="file" id="csv-file" accept=".csv" required style="padding: 4px 0;">
+            <button type="submit">Upload CSV</button>
+        </form>
+        <div style="margin-top: 24px;">
+            <a href="index.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Menu Utama</a>
+        </div>
+        <div id="upload-status" style="margin-top:16px;"></div>
+    </section>
+    <script src="js/env.js"></script>
+    <!-- <script src="js/upload_peserta.js"></script> -->
+</body>
+</html> 
