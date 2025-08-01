@@ -54,7 +54,7 @@ async function loadSesiAktif() {
         return todayStr >= mulai && todayStr <= akhir && jam >= s.mulai.slice(0,5) && jam <= s.akhir.slice(0,5);
     });
     if (sesiAktif) {
-        infoSesiDiv.innerHTML = `<b>Sesi Aktif:</b> ${sesiAktif.nama_sesi}<br>Waktu: ${to12HourFormat(sesiAktif.mulai)} - ${to12HourFormat(sesiAktif.akhir)}<br>Toleransi Absen: <b>${sesiAktif.toleransi_absen} menit</b>`;
+        infoSesiDiv.innerHTML = `<br><b>INFORMASI SESI AKTIF</b><br>------</br><br>Sesi Aktif: <b>${sesiAktif.nama_sesi}</b><br>Waktu: <b>${to12HourFormat(sesiAktif.mulai)}</b> - <b>${to12HourFormat(sesiAktif.akhir)}</b><br>Toleransi Absen: <b>${sesiAktif.toleransi_absen} menit</b>`;
     } else {
         infoSesiDiv.innerHTML = '<span style="color:#e67e22">Tidak ada sesi aktif saat ini</span>';
     }
