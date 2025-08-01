@@ -79,12 +79,12 @@ const html5QrcodeScanner = new Html5QrcodeScanner(
 );
 html5QrcodeScanner.render(onScanSuccess);
 
-// Tampilkan tips jika QR tidak terdeteksi dalam 5 detik
+// Tampilkan tips jika QR tidak terdeteksi dalam 10 detik
 let scanTimeout = setTimeout(() => {
-    showStatus('QR code belum terdeteksi? Pastikan QR jelas, tidak silau, dan kamera fokus.', '#e67e22');
-}, 5000);
+    showStatus('QR code belum terdeteksi? Pastikan QR jelas, tidak silau, dan kamera fokus.', 'red');
+}, 10000);
 
-// Tambahkan fungsi playSound agar bisa dipakai di sini
+// fungsi playSound
 function playSound(filename) {
     const audio = new Audio(`sound/${filename}`);
     audio.play();
@@ -93,7 +93,7 @@ function playSound(filename) {
 function onScanSuccess(decodedText, decodedResult) {
     clearTimeout(scanTimeout);
     // Mainkan suara saat QR terdeteksi
-    playSound('beep.mp3'); // Ganti dengan nama file sesuai file sound Anda
+    playSound('beep.mp3');
     // decodedText = ID peserta
     showStatus('Memproses absensi...', '#888');
     fetch(API_ABSEN, {
@@ -105,13 +105,11 @@ function onScanSuccess(decodedText, decodedResult) {
     .then(data => {
         if (data.status === 'Tepat Waktu') {
             showStatus(
-                `Absen untuk <b>${data.nama}</b> <span style="color:green">BERHASIL</span>.<br>waktu absen <b>${data.waktu_absen}</b><br><span style="color:green">ANDA TEPAT WAKTU</span>`,
-                'green'
+                `Absen untuk <b>${data.nama}</b> <span style="color:green">BERHASIL</span>.<br>waktu absen <b>${data.waktu_absen}</b><br><span style="color:green">ANDA TEPAT WAKTU</span>`
             );
         } else if (data.status === 'Terlambat') {
             showStatus(
-                `Absen untuk <b>${data.nama}</b> <span style="color:green">BERHASIL</span>.<br>waktu absen <b>${data.waktu_absen}</b><br><span style="color:orange">ANDA TERLAMBAT</span>`,
-                'orange'
+                `Absen untuk <b>${data.nama}</b> <span style="color:green">BERHASIL</span>.<br>waktu absen <b>${data.waktu_absen}</b><br><span style="color:red">ANDA TERLAMBAT</span>`
             );
         } else if (data.status === 'Sudah Absen') {
             showStatus(

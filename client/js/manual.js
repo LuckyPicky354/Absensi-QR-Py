@@ -11,6 +11,27 @@ const statusDiv = document.getElementById('status');
 let sesiAktif = null;
 let pesertaBelumAbsenGlobal = [];
 
+// Fungsi format waktu notifikasi absen
+function formatWaktu(waktuString) {
+    if (!waktuString) return '';
+    
+    const date = new Date(waktuString);
+    let jam = date.getHours();
+    const menit = date.getMinutes().toString().padStart(2, '0');
+    const detik = date.getSeconds().toString().padStart(2, '0');
+    const tanggal = date.getDate().toString().padStart(2, '0');
+    const bulan = (date.getMonth() + 1).toString().padStart(2, '0');
+    const tahun = date.getFullYear();
+    
+    // Konversi ke format 12 jam
+    const ampm = jam >= 12 ? 'PM' : 'AM';
+    jam = jam % 12;
+    if (jam === 0) jam = 12;
+    const jam12 = jam.toString().padStart(2, '0');
+    
+    return `${jam12}.${menit}.${detik} ${ampm} Tanggal ${tanggal}-${bulan}-${tahun}`;
+}
+
 function to12HourFormat(time24) {
     if (!time24) return '';
     const [hour, minute] = time24.split(":");
@@ -105,10 +126,14 @@ window.absenManual = async (id, nama) => {
         body: JSON.stringify({ peserta_id: id })
     });
     const data = await res.json();
+    
+    // Menggunakan format waktu yang sudah di siapakan di atas
+    const waktuAbsenFormatted = formatWaktu(data.waktu_absen);
+    
     if (data.status === 'Tepat Waktu') {
-        statusDiv.innerHTML = `Absen untuk <b>${data.nama}</b> <span style="color:green">BERHASIL</span>.<br>waktu absen <b>${data.waktu_absen}</b><br><span style="color:green">ANDA TEPAT WAKTU</span>`;
+        statusDiv.innerHTML = `Absen untuk <b>${data.nama}</b> <span style="color:green">BERHASIL</span>.<br>waktu absen <b>${waktuAbsenFormatted}</b><br><span style="color:green"><b>ANDA TEPAT WAKTU</b></span>`, 'green';
     } else if (data.status === 'Terlambat') {
-        statusDiv.innerHTML = `Absen untuk <b>${data.nama}</b> <span style="color:green">BERHASIL</span>.<br>waktu absen <b>${data.waktu_absen}</b><br><span style="color:orange">ANDA TERLAMBAT</span>`;
+        statusDiv.innerHTML = `Absen untuk <b>${data.nama}</b> <span style="color:green">BERHASIL</span>.<br>waktu absen <b>${waktuAbsenFormatted}</b><br><span style="color:red"><b>ANDA TERLAMBAT</b></span>`, 'orange';
     } else if (data.status === 'Sudah Absen') {
         statusDiv.innerHTML = `<b>${data.nama}</b> sudah absen`;
     } else {
