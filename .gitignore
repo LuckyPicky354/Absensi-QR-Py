@@ -1,8 +1,8 @@
 client/js/env.js
-server/_pycache_
-server/static/qr_codes
-server/models/__pycache__
-server/routes/__pycache__
+server/_pycache_/
+server/static/qr_codes/
+server/models/__pycache__/
+server/routes/__pycache__/
 server/database/database.db
 server/.env
 venv/
