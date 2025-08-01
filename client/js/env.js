@@ -1,0 +1,1 @@
+window.BASE_URL = 'https://192.168.0.20:8000';
