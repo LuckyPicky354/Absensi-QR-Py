@@ -14,6 +14,7 @@ Aplikasi **Absensi QR** adalah sistem absensi peserta berbasis QR code yang berj
 - **Dashboard laporan** (filter, ekspor CSV)
 - **Tanpa login admin** (akses dashboard via URL di LAN)
 - **Berbasis LAN** (tidak butuh internet)
+- **🆕 Auto-recovery QR code** (otomatis perbaiki QR code yang hilang)
 
 ---
 
@@ -129,4 +130,31 @@ client/   # Frontend HTML/JS/CSS
 ---
 
 **Dibuat untuk kebutuhan absensi sederhana, ringan, dan mudah digunakan di lingkungan lokal/LAN.** 
+
+---
+
+## 🆕 Fitur Auto-Recovery QR Code
+
+Aplikasi sekarang memiliki sistem auto-recovery untuk QR code yang hilang:
+
+### ✅ **Fitur Baru:**
+- **Pengecekan otomatis** saat server startup
+- **Regenerate QR code** yang hilang secara otomatis
+- **Cleanup file** QR code yang tidak terpakai
+- **API endpoints** untuk regenerate QR code manual
+- **Log monitoring** yang detail
+
+### 🔧 **Cara Kerja:**
+1. Saat server startup, sistem mengecek semua QR code
+2. Jika ada QR code yang hilang, otomatis dibuat ulang
+3. File QR code yang tidak terpakai dibersihkan
+4. Log detail ditampilkan di console
+
+### 📋 **Endpoint API Baru:**
+- `POST /peserta/regenerate-qr` - Regenerate semua QR code
+- `POST /peserta/{id}/regenerate-qr` - Regenerate QR code peserta tertentu
+
+### 📖 **Dokumentasi Lengkap:**
+Lihat file `QR_CODE_MANAGEMENT.md` untuk dokumentasi detail sistem QR code.
+
 ---
