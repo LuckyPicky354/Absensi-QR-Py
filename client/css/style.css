@@ -219,6 +219,28 @@ button > img.icon-btn {
   filter: brightness(0) invert(1);
 }
 
+.btn-download-qr {
+  background: #2d8cf0;
+  border: none;
+  border-radius: 5px;
+  padding: 4px 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+.btn-download-qr:hover {
+  background: #1765ad;
+}
+.download-white {
+  filter: brightness(0) invert(1);
+  width: 18px;
+  height: 18px;
+}
+
 @media (max-width: 600px) {
     section {
         padding: 12px;

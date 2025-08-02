@@ -32,8 +32,8 @@ function renderPesertaTable(data) {
             <td>${p.kelompok}</td>
             <td>${p.status}</td>
             <td>
-                <button class="btn-qr" onclick="window.open('${API_URL}/${p.id}/qr', '_blank')" title="Lihat QR Code">
-                  <img src="icon/qr-code.svg" alt="QR" class="icon-btn qr-white" />
+                <button class="btn-download-qr" onclick="downloadQR('${API_URL}/${p.id}/qr', '${p.nama}')" title="Download QR">
+                  <img src="icon/download.svg" alt="Download" class="icon-btn download-white" />
                 </button>
             </td>
             <td>
@@ -47,6 +47,20 @@ function renderPesertaTable(data) {
         `;
         tableBody.appendChild(tr);
     });
+}
+
+function downloadQR(url, nama) {
+    fetch(url)
+        .then(res => res.blob())
+        .then(blob => {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `QR_${nama}.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+        });
 }
 
 const searchInput = document.getElementById('search-peserta');

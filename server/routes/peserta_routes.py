@@ -5,6 +5,7 @@ from server.models.peserta import Peserta
 import os
 from fastapi.responses import FileResponse
 from server.utils.qr_generator import generate_qr_code
+from server.utils.zip_generator import create_qr_zip_file, cleanup_zip_files
 import csv
 from io import StringIO
 
@@ -121,6 +122,31 @@ def regenerate_peserta_qr(id: int, db: Session = Depends(get_db)):
             raise HTTPException(status_code=500, detail="Gagal membuat QR code")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Gagal regenerate QR code: {str(e)}") 
+
+# GET /peserta/download-all-qr-zip
+@router.get("/download-all-qr-zip")
+def download_all_qr_zip(db: Session = Depends(get_db)):
+    """
+    Endpoint untuk download semua QR code peserta dalam format ZIP
+    """
+    try:
+        # Bersihkan file ZIP lama
+        cleanup_zip_files()
+        
+        # Buat file ZIP baru
+        zip_path = create_qr_zip_file(db)
+        
+        # Cek apakah file ZIP berhasil dibuat
+        if os.path.exists(zip_path):
+            return FileResponse(
+                zip_path, 
+                media_type="application/zip",
+                filename=os.path.basename(zip_path)
+            )
+        else:
+            raise HTTPException(status_code=500, detail="Gagal membuat file ZIP")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error saat membuat ZIP: {str(e)}")
 
 # POST /peserta/upload-csv
 @router.post("/upload-csv")

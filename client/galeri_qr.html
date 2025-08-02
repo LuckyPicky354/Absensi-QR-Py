@@ -41,14 +41,26 @@
 <body>
   <h1>Galeri QR Peserta</h1>
   <div style="margin-bottom: 16px;"><a href="peserta.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Manajemen Peserta</a></div>
+  <div style="margin-bottom: 16px;">
+    <input type="text" id="search-qr" placeholder="Cari nama peserta..." style="padding: 7px 12px; border-radius: 5px; border: 1px solid #d0d7de; font-size: 1em; min-width: 220px;">
+  </div>
+  <div style="margin-bottom: 16px;">
+    <button id="btn-download-all-zip" style="background: #27ae60; color: #fff; padding: 8px 18px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em;">Download Semua QR (ZIP)</button>
+  </div>
   <div class="qr-gallery" id="qr-gallery"></div>
   <script src="js/env.js"></script>
   <script>
     const BASE_URL = window.BASE_URL || 'http://127.0.0.1:8000';
     const API_URL = `${BASE_URL}/peserta`;
+    let pesertaData = [];
+    
     async function loadGaleriQR() {
       const res = await fetch(API_URL);
-      const data = await res.json();
+      pesertaData = await res.json();
+      renderGaleriQR(pesertaData);
+    }
+    
+    function renderGaleriQR(data) {
       const gallery = document.getElementById('qr-gallery');
       gallery.innerHTML = '';
       data.forEach(p => {
@@ -62,7 +74,30 @@
         gallery.appendChild(div);
       });
     }
+    
+    const searchInput = document.getElementById('search-qr');
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
+        const keyword = this.value.trim().toLowerCase();
+        if (!keyword) {
+          renderGaleriQR(pesertaData);
+          return;
+        }
+        const filtered = pesertaData.filter(p =>
+          p.nama.toLowerCase().includes(keyword)
+        );
+        renderGaleriQR(filtered);
+      });
+    }
+    
     loadGaleriQR();
+    
+    const downloadAllBtn = document.getElementById('btn-download-all-zip');
+    if (downloadAllBtn) {
+      downloadAllBtn.addEventListener('click', function() {
+        window.open(`${BASE_URL}/peserta/download-all-qr-zip`, '_blank');
+      });
+    }
     
     function downloadQR(url, nama) {
       fetch(url)
