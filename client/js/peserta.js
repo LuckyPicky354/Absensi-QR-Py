@@ -32,11 +32,6 @@ function renderPesertaTable(data) {
             <td>${p.kelompok}</td>
             <td>${p.status}</td>
             <td>
-                <button class="btn-download-qr" onclick="downloadQR('${API_URL}/${p.id}/qr', '${p.nama}')" title="Download QR">
-                  <img src="icon/download.svg" alt="Download" class="icon-btn download-white" />
-                </button>
-            </td>
-            <td>
                 <button onclick="editPeserta(${p.id}, '${p.nama}', '${p.alamat}', '${p.kelompok}', '${p.status}')">
                   <img src="icon/square-pen.svg" alt="Edit" class="icon-btn" />
                 </button>
