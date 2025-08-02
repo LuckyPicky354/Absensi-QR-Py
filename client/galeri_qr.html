@@ -55,7 +55,7 @@
         const div = document.createElement('div');
         div.className = 'qr-item';
         div.innerHTML = `
-          <img src="${API_URL}/${p.id}/qr" alt="QR Peserta ${p.nama}" />
+          <img src="${API_URL}/${p.id}/qr" alt="QR Peserta ${p.nama}" style="cursor:pointer;" onclick="downloadQR('${API_URL}/${p.id}/qr', '${p.nama}')" />
           <div class="nama">${p.nama}</div>
           <div class="id">ID: ${p.id}</div>
         `;
@@ -63,6 +63,20 @@
       });
     }
     loadGaleriQR();
+    
+    function downloadQR(url, nama) {
+      fetch(url)
+        .then(res => res.blob())
+        .then(blob => {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = `QR_${nama}.png`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(a.href);
+        });
+    }
   </script>
 </body>
 </html>
