@@ -38,19 +38,23 @@ async function loadSesi() {
     const res = await fetch(API_URL);
     const data = await res.json();
     tableBody.innerHTML = '';
-    data.forEach(s => {
+    data.forEach((s, index) => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>${s.id}</td>
+            <td>${index + 1}</td>
             <td>${s.nama_sesi}</td>
-            <td>${formatTanggalDDMMYY(s.tanggal)}</td>
-            <td>${formatTanggalDDMMYY(s.tanggal_akhir)}</td>
-            <td>${formatJam(s.mulai)}</td>
-            <td>${formatJam(s.akhir)}</td>
+            <td>${s.tanggal}</td>
+            <td>${s.tanggal_akhir || '-'}</td>
+            <td>${s.mulai}</td>
+            <td>${s.akhir}</td>
             <td>${s.toleransi_absen} menit</td>
             <td>
-                <button onclick="editSesi(${s.id}, '${s.nama_sesi}', '${s.tanggal}', '${s.tanggal_akhir}', '${s.mulai}', '${s.akhir}', ${s.toleransi_absen})">Edit</button>
-                <button class="btn-hapus" onclick="deleteSesi(${s.id})">Hapus</button>
+                <button onclick="editSesi(${s.id}, '${s.nama_sesi}', '${s.tanggal}', '${s.tanggal_akhir}', '${s.mulai}', '${s.akhir}', ${s.toleransi_absen})">
+                  <img src="icon/square-pen.svg" alt="Edit" class="icon-btn" />
+                </button>
+                <button class="btn-hapus" onclick="deleteSesi(${s.id})">
+                  <img src="icon/trash-2.svg" alt="Hapus" class="icon-btn" />
+                </button>
             </td>
         `;
         tableBody.appendChild(tr);

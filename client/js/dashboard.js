@@ -83,7 +83,7 @@ async function loadLaporan() {
             <td>${l.sesi}</td>
             <td>${formatWaktu(l.waktu_absen)}</td>
             <td>${statusCell}</td>
-            <td><button class="btn-hapus" onclick="deleteAbsensi(${l.id})" style="margin-top:4px;">Hapus</button></td>
+            <td><button class="btn-hapus" onclick="deleteAbsensi(${l.id})" style="margin-top:4px;"><img src="icon/trash-2.svg" alt="Hapus" class="icon-btn" /></button></td>
         `;
         tableBody.appendChild(tr);
     });

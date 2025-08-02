@@ -10,11 +10,18 @@ const statusInput = document.getElementById('status');
 const submitBtn = document.getElementById('submit-btn');
 const resetBtn = document.getElementById('reset-btn');
 const tableBody = document.querySelector('#laporan-table tbody');
+const hapusSemuaBtn = document.getElementById('hapus-semua-peserta');
+
+let pesertaData = [];
 
 // Fetch dan tampilkan data peserta
 async function loadPeserta() {
     const res = await fetch(API_URL);
-    const data = await res.json();
+    pesertaData = await res.json();
+    renderPesertaTable(pesertaData);
+}
+
+function renderPesertaTable(data) {
     tableBody.innerHTML = '';
     data.forEach(p => {
         const tr = document.createElement('tr');
@@ -24,13 +31,39 @@ async function loadPeserta() {
             <td>${p.alamat}</td>
             <td>${p.kelompok}</td>
             <td>${p.status}</td>
-            <td><a href="${API_URL}/${p.id}/qr" target="_blank">QR</a></td>
             <td>
-                <button onclick="editPeserta(${p.id}, '${p.nama}', '${p.alamat}', '${p.kelompok}', '${p.status}')">Edit</button>
-                <button class="btn-hapus" onclick="deletePeserta(${p.id})">Hapus</button>
+                <button class="btn-qr" onclick="window.open('${API_URL}/${p.id}/qr', '_blank')" title="Lihat QR Code">
+                  <img src="icon/qr-code.svg" alt="QR" class="icon-btn qr-white" />
+                </button>
+            </td>
+            <td>
+                <button onclick="editPeserta(${p.id}, '${p.nama}', '${p.alamat}', '${p.kelompok}', '${p.status}')">
+                  <img src="icon/square-pen.svg" alt="Edit" class="icon-btn" />
+                </button>
+                <button class="btn-hapus" onclick="deletePeserta(${p.id})">
+                  <img src="icon/trash-2.svg" alt="Hapus" class="icon-btn" />
+                </button>
             </td>
         `;
         tableBody.appendChild(tr);
+    });
+}
+
+const searchInput = document.getElementById('search-peserta');
+if (searchInput) {
+    searchInput.addEventListener('input', function() {
+        const keyword = this.value.trim().toLowerCase();
+        if (!keyword) {
+            renderPesertaTable(pesertaData);
+            return;
+        }
+        const filtered = pesertaData.filter(p =>
+            p.nama.toLowerCase().includes(keyword) ||
+            p.alamat.toLowerCase().includes(keyword) ||
+            p.kelompok.toLowerCase().includes(keyword) ||
+            p.status.toLowerCase().includes(keyword)
+        );
+        renderPesertaTable(filtered);
     });
 }
 
@@ -91,4 +124,24 @@ resetBtn.onclick = () => {
 };
 
 // Inisialisasi
-loadPeserta(); 
+loadPeserta();
+
+if (hapusSemuaBtn) {
+    hapusSemuaBtn.onclick = async function() {
+        if (confirm('PERINGATAN: Semua data peserta dan QR code akan dihapus permanen dan tidak bisa di-undo! Lanjutkan?')) {
+            const BASE_URL = window.BASE_URL || 'http://127.0.0.1:8000';
+            try {
+                const res = await fetch(`${BASE_URL}/peserta/hapus-semua`, { method: 'DELETE' });
+                if (res.ok) {
+                    alert('Semua peserta berhasil dihapus!');
+                    loadPeserta();
+                } else {
+                    const err = await res.text();
+                    alert('Gagal menghapus semua peserta: ' + err);
+                }
+            } catch (err) {
+                alert('Terjadi error: ' + err);
+            }
+        }
+    }
+} 

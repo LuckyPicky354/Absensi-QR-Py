@@ -46,6 +46,17 @@ def update_peserta(id: int, data: dict, db: Session = Depends(get_db)):
     db.commit()
     return peserta
 
+# DELETE /peserta/hapus-semua
+@router.delete("/hapus-semua")
+def hapus_semua_peserta(db: Session = Depends(get_db)):
+    deleted = db.query(Peserta).delete()
+    db.commit()
+    # Hapus semua file QR code peserta
+    qr_dir = "server/static/qr_codes/"
+    for f in os.listdir(qr_dir):
+        if f.endswith('.png'):
+            os.remove(os.path.join(qr_dir, f))
+    return {"success": True, "deleted": deleted}
 # DELETE /peserta/{id}
 @router.delete("/{id}")
 def delete_peserta(id: int, db: Session = Depends(get_db)):
@@ -120,8 +131,9 @@ def upload_peserta_csv(file: UploadFile = File(...), db: Session = Depends(get_d
     content = file.file.read().decode('utf-8')
     reader = csv.DictReader(StringIO(content))
     expected_header = ['nama', 'alamat', 'kelompok', 'status']
+    # Validasi header HARUS sama persis (urutan dan nama)
     if reader.fieldnames != expected_header:
-        raise HTTPException(status_code=400, detail=f"Header CSV tidak sesuai. Harus: {','.join(expected_header)}")
+        raise HTTPException(status_code=400, detail=f"Header CSV tidak sesuai. Harus persis: {','.join(expected_header)}")
     peserta_list = []
     for row in reader:
         # Validasi sederhana, bisa ditambah sesuai kebutuhan
@@ -136,4 +148,4 @@ def upload_peserta_csv(file: UploadFile = File(...), db: Session = Depends(get_d
         db.add(peserta)
         peserta_list.append(peserta)
     db.commit()
-    return {"inserted": len(peserta_list)} 
+    return {"success": True, "inserted": len(peserta_list), "message": f"{len(peserta_list)} peserta berhasil diupload."} 
