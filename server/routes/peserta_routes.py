@@ -1,10 +1,12 @@
-from fastapi import APIRouter, HTTPException, Depends, Response
+from fastapi import APIRouter, HTTPException, Depends, Response, UploadFile, File
 from sqlalchemy.orm import Session
 from server.app import SessionLocal
 from server.models.peserta import Peserta
 import os
 from fastapi.responses import FileResponse
 from server.utils.qr_generator import generate_qr_code
+import csv
+from io import StringIO
 
 router = APIRouter(prefix="/peserta", tags=["Peserta"])
 
@@ -108,3 +110,30 @@ def regenerate_peserta_qr(id: int, db: Session = Depends(get_db)):
             raise HTTPException(status_code=500, detail="Gagal membuat QR code")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Gagal regenerate QR code: {str(e)}") 
+
+# POST /peserta/upload-csv
+@router.post("/upload-csv")
+def upload_peserta_csv(file: UploadFile = File(...), db: Session = Depends(get_db)):
+    # Validasi ekstensi
+    if not file.filename.endswith('.csv'):
+        raise HTTPException(status_code=400, detail="File harus berformat CSV")
+    content = file.file.read().decode('utf-8')
+    reader = csv.DictReader(StringIO(content))
+    expected_header = ['nama', 'alamat', 'kelompok', 'status']
+    if reader.fieldnames != expected_header:
+        raise HTTPException(status_code=400, detail=f"Header CSV tidak sesuai. Harus: {','.join(expected_header)}")
+    peserta_list = []
+    for row in reader:
+        # Validasi sederhana, bisa ditambah sesuai kebutuhan
+        if not all(row.get(h) for h in expected_header):
+            continue
+        peserta = Peserta(
+            nama=row['nama'],
+            alamat=row['alamat'],
+            kelompok=row['kelompok'],
+            status=row['status']
+        )
+        db.add(peserta)
+        peserta_list.append(peserta)
+    db.commit()
+    return {"inserted": len(peserta_list)} 
