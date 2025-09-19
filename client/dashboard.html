@@ -11,14 +11,16 @@
     <div style="margin-bottom: 16px;"><a href="index.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Menu Utama</a></div>
     <section>
         <form id="filter-form">
-            <label>Filter Tanggal:
-                <input type="date" id="filter-tanggal">
-            </label>
-            <label>Filter Sesi:
-                <select id="filter-sesi">
-                    <option value="">Semua Sesi</option>
-                </select>
-            </label>
+            <div style="display: flex; gap: 16px; width: fit-content; justify-content: space-between; margin-bottom: 16px;">
+                <label>Filter Tanggal:
+                    <input type="date" id="filter-tanggal">
+                </label>
+                <label>Filter Sesi:
+                    <select id="filter-sesi">
+                        <option value="">Semua Sesi</option>
+                    </select>
+                </label>
+            </div>
             <button type="submit">Terapkan Filter</button>
             <button type="button" id="reset-filter">Reset</button>
             <button id="export-csv" style="margin-top:16px;">Ekspor CSV</button>

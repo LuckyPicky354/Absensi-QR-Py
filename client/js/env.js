@@ -1,1 +1,1 @@
-window.BASE_URL = 'https://192.168.0.3:8000'; // isikan IP Server
+window.BASE_URL = 'https://192.168.0.7:8000'; // isikan IP Server

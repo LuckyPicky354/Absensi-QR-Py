@@ -207,7 +207,6 @@ button:hover {
   height: 20px;
   vertical-align: middle;
   pointer-events: none;
-  margin: 0 2px;
 }
 button > img.icon-btn {
   padding: 0;
@@ -218,6 +217,37 @@ button > img.icon-btn {
 .qr-white {
   filter: brightness(0) invert(1);
 }
+
+    .qr-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      margin-top: 32px;
+    }
+    .qr-item {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 18px 12px 12px 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .qr-item img {
+      width: 140px;
+      height: 140px;
+      margin-bottom: 12px;
+    }
+    .qr-item .nama {
+      font-weight: 600;
+      font-size: 1.1em;
+      margin-bottom: 2px;
+    }
+    .qr-item .id {
+      color: #888;
+      font-size: 0.95em;
+    }
 
 .btn-download-qr {
   background: #2d8cf0;
