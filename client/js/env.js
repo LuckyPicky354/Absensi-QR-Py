@@ -6,7 +6,7 @@ window.AUTH_USERS = [
   { username: 'scanner', password: 'scan', role: 'scanner' }
 ];
 
-// Opsi halaman redirect per role (opsional)
+// Opsi halaman redirect ketika user login
 window.ROLE_HOME = {
   admin: 'menu.html',
   scanner: 'scan.html'
