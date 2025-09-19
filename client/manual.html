@@ -8,7 +8,8 @@
 </head>
 <body>
     <h1>Manual Absensi</h1>
-    <div style="margin-bottom: 16px;"><a href="index.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Menu Utama</a></div>
+    <div id="auth-bar" style="margin-bottom:8px;"></div>
+    <div style="margin-bottom: 16px;"><a href="menu.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Menu Utama</a></div>
     <div style="max-width: 1200px; margin: 0 auto; display: flex; gap: 20px; margin-bottom: 20px; align-items: flex-start;">
         <section id="info-sesi" style="flex: 1; min-width: 300px; padding: 16px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07);"></section>
         <div id="status" style="flex: 1; min-width: 300px; padding: 16px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); font-size: 1.1em;"></div>
@@ -34,6 +35,12 @@
         </section>
     </div>
     <script src="js/env.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      // Hanya admin dan scanner
+      window.Auth.requireAuth(['admin','scanner']);
+      window.Auth.renderAuthBar('auth-bar');
+    </script>
     <script src="js/manual.js"></script>
 </body>
 </html> 

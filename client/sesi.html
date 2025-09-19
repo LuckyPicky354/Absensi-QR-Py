@@ -8,7 +8,8 @@
 </head>
 <body>
     <h1>Manajemen Sesi</h1>
-    <div style="margin-bottom: 16px;"><a href="index.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Menu Utama</a></div>
+    <div id="auth-bar" style="margin-bottom:8px;"></div>
+    <div style="margin-bottom: 16px;"><a href="menu.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Menu Utama</a></div>
     <section id="form-section">
         <h2>Tambah Sesi</h2>
         <form id="sesi-form">
@@ -50,6 +51,12 @@
         </table>
     </section>
     <script src="js/env.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      // Hanya admin yang boleh akses manajemen sesi
+      window.Auth.requireAuth(['admin']);
+      window.Auth.renderAuthBar('auth-bar');
+    </script>
     <script src="js/sesi.js"></script>
 </body>
 </html> 

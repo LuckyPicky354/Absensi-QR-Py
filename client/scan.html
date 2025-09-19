@@ -9,13 +9,37 @@
 </head>
 <body>
     <h1>Scan QR (Peserta)</h1>
-    <div style="margin-bottom: 16px;"><a href="index.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Menu Utama</a></div>
+    <div id="auth-bar" style="margin-bottom:8px; text-align:center;"></div>
+    <div id="back-menu" style="margin-bottom: 16px;"><a href="menu.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Menu Utama</a></div>
+    <div style="text-align:center; margin-bottom: 12px;">
+        <button id="btn-go-manual" style="display:none; padding:8px 14px; border:none; border-radius:6px; background:#2d8cf0; color:#fff; cursor:pointer;">Absen Manual</button>
+    </div>
     <section>
         <div id="sesi-info" style="margin-bottom:24px; text-align:center; font-size:1.1em; color:#1765ad;"></div>
         <div id="qr-reader" style="width:100%; max-width:400px; margin:auto;"></div>
         <div id="status" style="margin-top:24px; text-align:center; font-size:1.2em;"></div>
     </section>
     <script src="js/env.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      // Hanya admin dan scanner
+      window.Auth.requireAuth(['admin','scanner']);
+      window.Auth.renderAuthBar('auth-bar');
+      (function(){
+        const user = window.Auth.getCurrentUser();
+        const btn = document.getElementById('btn-go-manual');
+        const back = document.getElementById('back-menu');
+        if (user && user.role === 'scanner') {
+          if (btn) {
+            btn.style.display = 'inline-block';
+            btn.addEventListener('click', function(){
+              window.location.href = 'manual.html';
+            });
+          }
+          if (back) back.style.display = 'none';
+        }
+      })();
+    </script>
     <script src="js/scan.js"></script>
 </body>
 </html> 

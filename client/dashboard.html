@@ -8,7 +8,8 @@
 </head>
 <body>
     <h1>Dashboard Laporan Absensi</h1>
-    <div style="margin-bottom: 16px;"><a href="index.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Menu Utama</a></div>
+    <div id="auth-bar" style="margin-bottom:8px;"></div>
+    <div style="margin-bottom: 16px;"><a href="menu.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Menu Utama</a></div>
     <section>
         <form id="filter-form">
             <div style="display: flex; gap: 16px; width: fit-content; justify-content: space-between; margin-bottom: 16px;">
@@ -46,6 +47,12 @@
         </table>
     </section>
     <script src="js/env.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      // Hanya admin yang boleh akses dashboard
+      window.Auth.requireAuth(['admin']);
+      window.Auth.renderAuthBar('auth-bar');
+    </script>
     <script src="js/dashboard.js"></script>
 </body>
 </html> 

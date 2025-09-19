@@ -3,25 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absensi QR Code</title>
+    <title>Login - Absensi QR</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/menu.css">
-</head>
-<body>
-    <div class="menu-container">
-        <h1>Absensi QR Code</h1>
-        <h2>Menu Utama</h2>
-        <ul class="menu-list">
-            <li><a href="dashboard.html">Dashboard Laporan Absensi</a></li>
-            <li><a href="peserta.html">Manajemen Peserta</a></li>
-            <li><a href="sesi.html">Manajemen Sesi</a></li>
-            <li><a href="scan.html">Scan QR (Peserta)</a></li>
-            <li><a href="manual.html">Manual Absensi</a></li>
-        </ul>
-        <br>
-        <b class="copyright">Copyright &copy; 2025 RF Design Studio</b><br>
-        <b class="copyright"><a href="https://github.com/LuckyPicky354/absnesi-python">GitHub</a></b>
+    <style>
+      .login-card { max-width: 420px; margin: 40px auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+      .login-card h1 { margin-top: 0; }
+      .login-card label { display:block; margin-bottom: 10px; }
+      .login-card input { width: 100%; padding: 8px; }
+      .login-actions { display:flex; justify-content: space-between; align-items:center; margin-top: 12px; }
+      .error { color: #d63031; margin-top: 10px; }
+    </style>
+  </head>
+  <body>
+    <div class="login-card">
+      <h1>Login - Absensi QR Code</h1>
+      <form id="login-form">
+        <label>Username<br><input type="text" id="username" required></label>
+        <label>Password<br><input type="password" id="password" required></label>
+        <div class="login-actions">
+          <button type="submit">Masuk</button>
+        </div>
+        <div id="login-error" class="error"></div>
+      </form>
     </div>
     <script src="js/env.js"></script>
-</body>
-</html> 
+    <script src="js/auth.js"></script>
+    <script>
+      (function(){
+        const form = document.getElementById('login-form');
+        const err = document.getElementById('login-error');
+        form.addEventListener('submit', function(e){
+          e.preventDefault();
+          const u = document.getElementById('username').value.trim();
+          const p = document.getElementById('password').value;
+          const res = window.Auth.login(u, p);
+          if (!res.ok) {
+            err.textContent = res.message || 'Login gagal';
+            return;
+          }
+          window.location.replace(res.redirect || 'menu.html');
+        });
+      })();
+    </script>
+  </body>
+</html>

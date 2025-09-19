@@ -8,7 +8,8 @@
 </head>
 <body>
     <h1>Manajemen Peserta</h1>
-    <div style="margin-bottom: 16px;"><a href="index.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Menu Utama</a></div>
+    <div id="auth-bar" style="margin-bottom:8px;"></div>
+    <div style="margin-bottom: 16px;"><a href="menu.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Menu Utama</a></div>
     <section id="form-section">
         <h2>Tambah Peserta</h2>
         <form id="peserta-form">
@@ -59,6 +60,12 @@
         <button id="hapus-semua-peserta" class="btn-hapus" style="margin-top:18px;">Hapus Semua Peserta</button>
     </section>
     <script src="js/env.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      // Hanya admin yang boleh akses manajemen peserta
+      window.Auth.requireAuth(['admin']);
+      window.Auth.renderAuthBar('auth-bar');
+    </script>
     <script src="js/peserta.js"></script>
     <script>
       document.getElementById('btn-daftar-qr').onclick = function() {

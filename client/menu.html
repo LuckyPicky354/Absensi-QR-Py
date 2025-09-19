@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Utama - Absensi QR Code</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu.css">
+</head>
+<body>
+    <div class="menu-container">
+        <h1>Absensi QR Code</h1>
+        <div id="auth-bar" style="margin: 8px 0;"></div>
+        <h2>Menu Utama</h2>
+        <ul class="menu-list">
+            <li><a href="dashboard.html">Dashboard Laporan Absensi</a></li>
+            <li><a href="peserta.html">Manajemen Peserta</a></li>
+            <li><a href="sesi.html">Manajemen Sesi</a></li>
+            <li><a href="scan.html">Scan QR (Peserta)</a></li>
+            <li><a href="manual.html">Manual Absensi</a></li>
+        </ul>
+        <br>
+        <b class="copyright">Copyright &copy; 2025 RF Design Studio</b><br>
+        <b class="copyright"><a href="https://github.com/LuckyPicky354/absnesi-python">GitHub</a></b>
+    </div>
+    <script src="js/env.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      // Hanya admin boleh mengakses menu utama
+      window.Auth.requireAuth(['admin']);
+      window.Auth.renderAuthBar('auth-bar');
+    </script>
+</body>
+</html>

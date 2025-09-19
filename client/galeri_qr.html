@@ -8,6 +8,7 @@
 </head>
 <body>
   <h1>Galeri QR Peserta</h1>
+  <div id="auth-bar" style="margin-bottom:8px;"></div>
   <div style="margin-bottom: 16px;"><a href="peserta.html" style="text-decoration:none; color:#2d8cf0; font-weight:500;">&larr; Kembali ke Manajemen Peserta</a></div>
   <div style="margin-bottom: 16px;">
     <input type="text" id="search-qr" placeholder="Cari nama peserta..." style="padding: 7px 12px; border-radius: 5px; border: 1px solid #d0d7de; font-size: 1em; min-width: 220px;">
@@ -17,6 +18,12 @@
   </div>
   <div class="qr-gallery" id="qr-gallery"></div>
   <script src="js/env.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Hanya admin yang boleh akses galeri qr
+    window.Auth.requireAuth(['admin']);
+    window.Auth.renderAuthBar('auth-bar');
+  </script>
   <script>
     const BASE_URL = window.BASE_URL || 'http://127.0.0.1:8000';
     const API_URL = `${BASE_URL}/peserta`;
