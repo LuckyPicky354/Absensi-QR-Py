@@ -1,12 +1,9 @@
 window.BASE_URL = 'https://192.168.0.7:8000'; // isikan IP Server
 
-// Konfigurasi kredensial login sederhana (client-side only)
-// PERINGATAN: Jangan gunakan untuk produksi. Hanya untuk kebutuhan lokal/demonstrasi.
 window.AUTH_USERS = [
-  // Contoh akun admin (akses semua halaman)
-  { username: 'admin', password: 'admin123', role: 'admin' },
-  // Contoh akun scanner (hanya bisa akses manual.html dan scan.html)
-  { username: 'scanner', password: 'scan123', role: 'scanner' }
+  // role 'admin' bisa akses semua halaman, role 'scanner' hanya bisa akses halaman scan dan absen manual
+  { username: 'admin', password: 'admin', role: 'admin' },
+  { username: 'scanner', password: 'scan', role: 'scanner' }
 ];
 
 // Opsi halaman redirect per role (opsional)
